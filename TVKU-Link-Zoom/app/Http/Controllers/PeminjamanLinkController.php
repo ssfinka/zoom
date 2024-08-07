@@ -74,7 +74,7 @@ class PeminjamanLinkController extends Controller
     public function approve(Request $request, $id)
     {
         $peminjaman = Peminjaman::findOrFail($id);
-    
+
         // Validasi input
         $request->validate([
             'link_zoom_id' => 'required|exists:links,id',
@@ -82,7 +82,7 @@ class PeminjamanLinkController extends Controller
             'password' => 'required|string|max:255',
             'catatan_admin' => 'nullable|string',
         ]);
-    
+
         // Update peminjaman dengan data yang dikirim dari form persetujuan
         $link = Link::findOrFail($request->input('link_zoom_id'));
         $peminjaman->update([
@@ -91,19 +91,19 @@ class PeminjamanLinkController extends Controller
             'id_meeting' => $request->input('id_meeting'),
             'password' => $request->input('password'),
             'catatan_admin' => $request->input('catatan_admin'),
-            'nama_peminjam' => $peminjaman->nama_peminjam ?: 'Diisi saat approval',
+            'nama_peminjam' => $peminjaman->nama_peminjam ?: $request->user_name,
             'waktu_peminjaman' => $peminjaman->waktu_peminjaman ?: now(),
         ]);
-    
+
         // Update status link Zoom menjadi "Sedang dipinjam"
         $link->status_peminjaman = 'Sedang dipinjam';
         $link->nama_peminjam = $peminjaman->nama_peminjam;
         $link->waktu_peminjaman = $peminjaman->waktu_peminjaman;
         $link->save();
-    
+
         // Redirect ke dashboard admin
         return redirect()->route('admin.dashboard')->with('success', 'Peminjaman disetujui!');
-    }    
+    }
 
     public function detail($id)
     {
