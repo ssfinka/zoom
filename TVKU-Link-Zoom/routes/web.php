@@ -52,6 +52,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('peminjaman/{id}/detail', [PeminjamanLinkController::class, 'detail'])->name('peminjaman.detail');
 
     // Route untuk laporan bulanan
+    Route::get('laporan-bulanan/chart', [LaporanBulananController::class, 'chart'])->name('laporan-bulanan.chart');
     Route::get('laporan-bulanan', [LaporanBulananController::class, 'index'])->name('laporan-bulanan');
 });
 

@@ -21,7 +21,9 @@ class Peminjaman extends Model
         'link_zoom',
         'id_meeting',
         'password',
-        'catatan_admin'    
+        'catatan_admin',
+        'nama_peminjam',
+        'feedback',
     ];
 
     public function user()

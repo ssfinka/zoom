@@ -41,6 +41,7 @@
                                 <div class="form-group">
                                     <label>Nama Peminjam</label>
                                     <input type="text" class="form-control" value="{{ $peminjaman->user->name }}" readonly>
+                                    <input type="hidden" name="user_name" class="form-control" value="{{ $peminjaman->user->name }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Waktu Zoom</label>
